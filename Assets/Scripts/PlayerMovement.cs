@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    
+    public Animator playerAnimator;
     public float moveSpeed = 5f;
     public float sprintSpeed = 10f;
     public CharacterController controller;
@@ -28,8 +28,16 @@ public class PlayerMovement : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
+        if ( move != Vector3.zero)
+        {
+            playerAnimator.SetBool("IsRunning", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("IsRunning", false);
+        }
 
-    
+
         controller.Move( move * currentSpeed * Time.deltaTime);
 
         velocity.y += gravity * Time.deltaTime;
