@@ -6,6 +6,7 @@ using TMPro;
 
 public class WeaponScript : MonoBehaviour
 {
+    public Animator playerAnimator;
     public float damage = 10f;
     public float range = 100f;
     public int MaxAmmo = 30;
@@ -26,6 +27,7 @@ public class WeaponScript : MonoBehaviour
         ammoText.text = currentAmmo.ToString() + " / " + MaxAmmo.ToString();
         if (Input.GetButtonDown("Fire1") && currentAmmo  > 0 && isReloading == false)
         {
+            playerAnimator.SetTrigger("Shoot");
             Shoot();
         }
         if(Input.GetKeyDown(KeyCode.R) && currentAmmo < MaxAmmo && isReloading == false)
