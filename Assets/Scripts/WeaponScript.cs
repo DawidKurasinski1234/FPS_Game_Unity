@@ -1,6 +1,8 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
+using System.Collections;
+using TMPro;
 
 public class WeaponScript : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class WeaponScript : MonoBehaviour
     public Camera fpsCam;
     private bool isReloading = false;
     Target enemy;
+    public TextMeshProUGUI ammoText;
 
     private void Start()
     {
@@ -20,10 +23,17 @@ public class WeaponScript : MonoBehaviour
 
     void Update()
     {
+        ammoText.text = currentAmmo.ToString() + " / " + MaxAmmo.ToString();
         if (Input.GetButtonDown("Fire1") && currentAmmo  > 0 && isReloading == false)
         {
             Shoot();
         }
+        if(Input.GetKeyDown(KeyCode.R) && currentAmmo < MaxAmmo && isReloading == false)
+        {
+            StartCoroutine(Reload());
+            isReloading = true;
+        }
+        
     }
     void Shoot()
     {
@@ -38,8 +48,14 @@ public class WeaponScript : MonoBehaviour
                 enemy.TakeDamage(damage);
             }
         }
-
     }
-    
-       
+    IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(reloadTime);
+
+        currentAmmo = MaxAmmo;
+        isReloading = false;
+    }
+
+
 }
