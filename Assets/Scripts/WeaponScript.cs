@@ -6,6 +6,8 @@ using TMPro;
 
 public class WeaponScript : MonoBehaviour
 {
+    [Header("Effects")]
+    public GameObject hitEffect;
     public Animator playerAnimator;
     public float damage = 10f;
     public float range = 100f;
@@ -25,7 +27,7 @@ public class WeaponScript : MonoBehaviour
     void Update()
     {
         ammoText.text = currentAmmo.ToString() + " / " + MaxAmmo.ToString();
-        if (Input.GetButtonDown("Fire1") && currentAmmo  > 0 && isReloading == false)
+           if (Input.GetButtonDown("Fire1") && currentAmmo  > 0 && isReloading == false)
         {
             playerAnimator.SetTrigger("Shoot");
             Shoot();
@@ -44,8 +46,10 @@ public class WeaponScript : MonoBehaviour
         if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
             enemy = hit.transform.GetComponent<Target>();
-            
-            if(enemy != null)
+            GameObject impact = Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            Destroy(impact, 10f);
+
+            if (enemy != null)
             {
                 enemy.TakeDamage(damage);
             }

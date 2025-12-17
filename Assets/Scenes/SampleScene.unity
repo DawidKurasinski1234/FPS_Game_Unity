@@ -438,9 +438,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1274784c6d26ef74b8d664246724a3d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponScript
+  hitEffect: {fileID: 0}
+  playerAnimator: {fileID: 0}
   damage: 10
   range: 100
+  MaxAmmo: 30
+  currentAmmo: 0
+  reloadTime: 2
   fpsCam: {fileID: 330585545}
+  ammoText: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -972,6 +978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4df6d3914500684487455966eb183eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  playerAnimator: {fileID: 0}
   moveSpeed: 5
   sprintSpeed: 10
   controller: {fileID: 1291487646}
